@@ -1,5 +1,1 @@
-from django.http import HttpResponse
-
-
-def home(request):
-    return HttpResponse('Главная')
+from django.shortcuts import render
