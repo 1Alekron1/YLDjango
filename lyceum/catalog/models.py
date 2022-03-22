@@ -1,5 +1,5 @@
 from django.db import models
-from Core.models import IdBaseModel, PublishedIdBaseModel, SlugBaseModel
+from core.models import IdBaseModel, PublishedIdBaseModel, SlugBaseModel
 from django.core import validators
 from .validators import validate_words_brilliants
 from django.contrib.auth import get_user_model
@@ -41,6 +41,9 @@ class Item(PublishedIdBaseModel):
 
     text = models.TextField('Описание', validators=[validate_words_brilliants],
                             help_text='Минимум два слова. Обязательно содержится слово превосходно или роскошно')
+    
+    ratings = models.ManyToManyField(
+        User, verbose_name='Товар',  through='rating.Rating', through_fields=('item', 'user'))
 
     class Meta:
         verbose_name = 'Товар'

@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = config('SECRET_KEY', default='h"?%4zC$t~1DQe%m/H"EVyWX"%[k>')
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'users.apps.UsersConfig',
     'rating.apps.RatingConfig',
+    'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
