@@ -5,8 +5,8 @@ def user_list(request):
     return HttpResponse("Список пользователей")
 
 
-def user_detail(request, data):
-    return HttpResponse(f"Информация о пользователе {data}")
+def user_detail(request, number):
+    return HttpResponse(f"Информация о пользователе {number}")
 
 
 def signup(request):
