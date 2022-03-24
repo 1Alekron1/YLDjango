@@ -8,4 +8,4 @@ def validate_brilliants(value):
 
 def validate_words(value):
     if len(value.split()) < 2:
-        raise ValidationError(f"Используйте больше {quantity}-х слов")
+        raise ValidationError(f"Используйте больше 2-х слов")
