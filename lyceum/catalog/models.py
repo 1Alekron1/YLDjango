@@ -1,10 +1,10 @@
-from django.db import models
-from django.core import validators
 from django.contrib.auth import get_user_model
+from django.core import validators
+from django.db import models
 
-from .validators import validate_brilliants, validate_words
 from core.models import PublishedBaseModel, SlugBaseModel
 
+from .validators import validate_brilliants, validate_words
 
 User = get_user_model()
 
@@ -55,6 +55,9 @@ class Item(PublishedBaseModel):
         through="rating.Rating",
         through_fields=("item", "user"),
     )
+
+    def __str__(self):
+        return self.name[:10]
 
     class Meta:
         verbose_name = "Товар"

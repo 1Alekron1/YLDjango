@@ -6,4 +6,13 @@
 
 {% block content %}
     <h1>Подробное описание товара</h1>
+    <div style="border: solid;">
+        <h3 style="color: green;">{{ item.name }}</h3>
+        <p><span style="color:chocolate;">Категория:</span> {{ item.category }}</p>
+        <p><span style="color:aqua;">Описание:</span> {{ item.text }}</p>
+        <p style="color: violet;">Тэги:</p>
+        {% for tag in item.tags.all %}
+            <p style='color: red;'>{{tag}}</p>
+        {% endfor %} 
+    </div>
 {% endblock content %}

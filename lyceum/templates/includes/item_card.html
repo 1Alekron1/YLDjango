@@ -1,0 +1,13 @@
+{% for item in items %}
+        <div style="border: solid;">
+            <h3 style="color: green;">{{ item.name }}</h3>
+            <p><span style="color:aqua;">Описание:</span> {{ item.text }}</p>
+            <p style="color: violet;">Тэги:</p>
+            {% for tag in item.tags.all %}
+                <p style='color: red;'>{{tag}}</p>
+            {% endfor %} 
+        </div>
+        <br>
+    {% empty %}
+        <p>Список пуст. Эй, админ, добавь инфы!</p>
+    {% endfor %}

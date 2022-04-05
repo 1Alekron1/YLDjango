@@ -1,7 +1,7 @@
 import os
-from decouple import config
 from pathlib import Path
 
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +25,11 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "rating.apps.RatingConfig",
     "core.apps.CoreConfig",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -93,3 +95,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+
+INTERNAL_IPS = ["127.0.0.1"]
