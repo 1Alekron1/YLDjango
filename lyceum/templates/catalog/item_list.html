@@ -5,6 +5,16 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Список товаров:</h2>
-    {% include 'includes/item_card.html' %}
+    {% if categories %}
+        <h2>Список товаров:</h2>
+        {% for category in categories %}
+            {% if category.items.all %}
+                <h2> {{category.slug}} </h2>
+                {% with category.items.all as items %}
+                    {% include 'includes/item_card.html' %}
+                {% endwith %}
+            {% endif %}
+        {% empty %} <p>Нет тут пока ничего</p>
+        {% endfor %}
+    {% endif %}
 {% endblock content %}

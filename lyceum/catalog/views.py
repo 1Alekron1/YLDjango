@@ -1,15 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from catalog.models import Item
+from catalog.models import Item, Category
 
 
 def item_list(request):
-    items = (
-        Item.objects.filter(is_published=True)
-        .prefetch_related("tags")
-        .only("name", "text")
+    categories = (
+        Category.objects.category_and_item_are_published()
+        .order_by("weight")
+        .only("slug")
     )
-    context = {"items": items}
+    context = {"categories": categories}
     return render(request, "catalog/item_list.html", context=context)
 
 

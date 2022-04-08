@@ -1,12 +1,29 @@
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
+from django.db.models import Prefetch
 
 from core.models import PublishedBaseModel, SlugBaseModel
 
 from .validators import validate_brilliants, validate_words
 
 User = get_user_model()
+
+
+class CategoryManager(models.Manager):
+    def category_and_item_are_published(self):
+        return self.filter(is_published=True).prefetch_related(
+            Prefetch("items", queryset=Item.objects.items_and_tags_are_published())
+        )
+
+
+class ItemManager(models.Manager):
+    def items_and_tags_are_published(self):
+        return self.filter(is_published=True).prefetch_related(
+            Prefetch(
+                "tags", queryset=Tag.objects.filter(is_published=True).only("slug")
+            )
+        )
 
 
 class Tag(PublishedBaseModel, SlugBaseModel):
@@ -34,12 +51,17 @@ class Category(PublishedBaseModel, SlugBaseModel):
     def __str__(self):
         return self.slug[:15]
 
+    objects = CategoryManager()
+
 
 class Item(PublishedBaseModel):
     name = models.CharField("Название", max_length=150, help_text="Макс 150 символов")
 
     category = models.ForeignKey(
-        Category, verbose_name="Категория", on_delete=models.CASCADE
+        Category,
+        verbose_name="Категория",
+        on_delete=models.CASCADE,
+        related_name="items",
     )
 
     tags = models.ManyToManyField(Tag)
@@ -65,3 +87,5 @@ class Item(PublishedBaseModel):
 
     def __str__(self):
         return self.name[:15]
+
+    objects = ItemManager()
