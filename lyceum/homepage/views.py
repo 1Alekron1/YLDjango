@@ -6,7 +6,6 @@ from catalog.models import Item
 
 def home(request):
     ids = list(Item.objects.filter(is_published=True).values_list("id", flat=True))
-    print(ids)
     if len(ids) >= 3:
         ids = sample(ids, 3)
     items = (

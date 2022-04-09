@@ -14,8 +14,6 @@ def item_list(request):
 
 
 def item_detail(request, pk):
-    item = get_object_or_404(Item, pk=pk)
-    if item.is_published == True:
-        context = {"item": item}
-        return render(request, "catalog/item_detail.html", context=context)
-    raise Http404("Товар не существует или не опубликован")
+    item = get_object_or_404(Item, pk=pk, is_published=True)
+    context = {"item": item}
+    return render(request, "catalog/item_detail.html", context=context)
