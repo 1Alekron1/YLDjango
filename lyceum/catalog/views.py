@@ -4,11 +4,7 @@ from catalog.models import Item, Category
 
 
 def item_list(request):
-    categories = (
-        Category.objects.category_and_item_are_published()
-        .order_by("weight")
-        .only("slug")
-    )
+    categories = Category.objects.category_and_item_are_published()
     context = {"categories": categories}
     return render(request, "catalog/item_list.html", context=context)
 

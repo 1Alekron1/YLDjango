@@ -12,8 +12,13 @@ User = get_user_model()
 
 class CategoryManager(models.Manager):
     def category_and_item_are_published(self):
-        return self.filter(is_published=True).prefetch_related(
-            Prefetch("items", queryset=Item.objects.items_and_tags_are_published())
+        return (
+            self.filter(is_published=True)
+            .prefetch_related(
+                Prefetch("items", queryset=Item.objects.items_and_tags_are_published())
+            )
+            .order_by("weight")
+            .only("slug")
         )
 
 
@@ -79,7 +84,7 @@ class Item(PublishedBaseModel):
     )
 
     def __str__(self):
-        return self.name[:10]
+        return " ".join(self.name.split()[:10])
 
     class Meta:
         verbose_name = "Товар"
