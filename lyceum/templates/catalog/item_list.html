@@ -6,10 +6,13 @@
 
 {% block content %}
     {% if categories %}
-        <h2>Список товаров:</h2>
+        </br>
+        <h1>Список товаров:</h1>
+        </br>
         {% for category in categories %}
             {% if category.items.all %}
-                <h2> {{category.slug}} </h2>
+                <h1 class="text-primary"> {{category.slug}} </h1>
+                </br>
                 {% with category.items.all as items %}
                     {% include 'includes/item_card.html' %}
                 {% endwith %}

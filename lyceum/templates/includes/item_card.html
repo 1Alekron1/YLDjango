@@ -1,15 +1,27 @@
-{% for item in items %}
-        <div style="border: solid;">
-            <h3 style="color: green;">{{ item.name }}</h3>
-            <p><span style="color:aqua;">Описание:</span> {{ item.text|truncatewords:10 }}</p>
-            {% if item.tags.all %}
-                <p style="color: violet;">Тэги:</p>
-                {% for tag in item.tags.all %}
-                    <p style='color: red;'>{{tag}}</p>
-                {% endfor %} 
-            {% endif %}
+<div class="row">
+    {% for item in items %}
+        <div class="col-sm-6">
+            <div class="card border-dark mb-3" style="width: 35rem;">
+                <h3 class='card-header'>
+                    {{ item.name }}
+                </h3>
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="text-warning">
+                            Теги: 
+                        <span>
+                        {% for tag in item.tags.all %}
+                        <span class="badge rounded-pill bg-primary">{{tag}}</span>
+                        {% endfor %}
+                    </div>
+                    <p class="card-text"><span class='text-danger'>Описание:</span> {{ item.text|truncatewords:10 }}</p>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'item_detail' item.pk %}" class="btn btn-outline-secondary">Подробнее</a>
+                </div>
+            </div>
         </div>
-        <br>
     {% empty %}
-        <p>Список пуст. Эй, админ, добавь инфы!</p>
+        <h3>Поставок не было :(</h3>
     {% endfor %}
+</div>
