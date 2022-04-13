@@ -26,7 +26,10 @@ INSTALLED_APPS = [
     "rating.apps.RatingConfig",
     "core.apps.CoreConfig",
     "debug_toolbar",
+    "crispy_forms",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",

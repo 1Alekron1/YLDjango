@@ -1,7 +1,7 @@
 {% extends 'includes/base.html' %}
 
 {% block title %}
-    Регистрация
+    Вход
 {% endblock title %}
 
 {% load crispy_forms_tags %}
@@ -19,14 +19,14 @@
 </ul>
 {% endif %}
 <div class="container py-5">
-	<h1>Регистрация</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ register_form|crispy }} 
-        <br>                   
-		<button class="btn btn-primary" type="submit">Зарегестрироваться</button>
-	</form>
-	<p class="text-center">Уже есть аккаунт, <a href="{% url 'signin' %}">войдите.</a></p>
-</div>
+    <h1>Вход</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ login_form|crispy }}
+        </br>
+      <button class="btn btn-primary" type="submit">Войти</button>
+    </form>
+    <p class="text-center">Нет аккаунта? <a href="{% url 'signup' %}">Создайте новый аккаунт</a>.</p>
+  </div>
 
 {% endblock content %}
