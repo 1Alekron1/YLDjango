@@ -6,12 +6,11 @@
 
 {% block content %}
     {% if categories %}
-        </br>
-        <h1 styles='margin-left: 10px'>Список товаров:</h1>
+        <h1 style='margin-left: 2rem' class='mt-2'>Список товаров:</h1>
         </br>
         {% for category in categories %}
             {% if category.items.all %}
-                <h1 class="text-primary"> {{category.slug}} </h1>
+                <h2 class="text-primary" style='margin-left: 2rem'> {{category.slug}} </h2>
                 </br>
                 {% with category.items.all as items %}
                     {% include 'includes/item_card.html' %}
