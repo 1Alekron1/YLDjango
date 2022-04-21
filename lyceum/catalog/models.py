@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Prefetch
 
 from core.models import PublishedBaseModel, SlugBaseModel
+from rating.models import Rating
 
 from .validators import validate_brilliants, validate_words
 
@@ -25,6 +26,15 @@ class CategoryManager(models.Manager):
 class ItemManager(models.Manager):
     def items_and_tags_are_published(self):
         return self.filter(is_published=True).prefetch_related(
+            Prefetch(
+                "tags", queryset=Tag.objects.filter(is_published=True).only("slug")
+            )
+        )
+
+    def favourite_items(self, user):
+        return self.filter(
+            pk__in=Rating.objects.filter(user=user, star=5).values_list("item_id")
+        ).prefetch_related(
             Prefetch(
                 "tags", queryset=Tag.objects.filter(is_published=True).only("slug")
             )

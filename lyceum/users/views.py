@@ -2,18 +2,26 @@ from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.db.models import Prefetch
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from .models import Profile
+from catalog.models import Item, Tag
+from rating.models import Rating
 
 
 def user_list(request):
-    context = {}
+    users = User.objects.all().select_related(
+        "profile",
+    )
+    context = {"users": users}
     return render(request, "users/user_list.html", context=context)
 
 
 def user_detail(request, number):
-    context = {
-        "number": number
-    }  # функция уже была с параметром, переделывать было слишком затратно, решили оставить с контекстом
+    user = User.objects.get(pk=number)
+    items = Item.objects.favourite_items(user)
+    context = {"user": user, "items": items, "path": "user_detail"}
     return render(request, "users/user_detail.html", context=context)
 
 
@@ -34,31 +42,7 @@ def signup(request):
     )
 
 
-def signin(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("homepage")
-            else:
-                messages.error(request, "Неправильное имя пользователя или пароль.")
-        else:
-            messages.error(request, "Неправильное имя пользователя или пароль.")
-    form = AuthenticationForm()
-    return render(
-        request=request, template_name="users/signin.html", context={"login_form": form}
-    )
-
-
-def logout_request(request):
-    logout(request)
-    return redirect("homepage")
-
-
 def profile(request):
-    context = {}
+    items = Item.objects.favourite_items(request.user)
+    context = {"items": items}
     return render(request, "users/profile.html", context=context)

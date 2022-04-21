@@ -7,25 +7,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <br>
-    <div class="alert alert-dismissible alert-primary">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Ошибка</strong> <p>{{message}}</p>
-      </div>
-    {% endfor %}
-</ul>
-{% endif %}
+{% with name='Войти' title='Вход'%}
+{% include 'includes/user_form.html' %}
+{% endwith %}
 <div class="container py-5">
-    <h1>Вход</h1>
-    <form method="POST">
-      {% csrf_token %}
-      {{ login_form|crispy }}
-        </br>
-      <button class="btn btn-primary" type="submit">Войти</button>
-    </form>
+    <br>
+    <p class="text-center"> <a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
     <p class="text-center">Нет аккаунта? <a href="{% url 'signup' %}">Создайте новый аккаунт</a>.</p>
   </div>
 

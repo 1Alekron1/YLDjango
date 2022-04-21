@@ -5,5 +5,34 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Информация о пользователе {{number}}</h1>
+    <h1 style='margin-left: 2rem' class='mt-2'>Информация о пользователе {{user.username}}</h1>
+    <div class="row" style='margin-left: 1rem'>
+            <div class="col-sm-6">
+                <div class="card border-dark mb-3" style="width: 35rem;">
+                    <h3 class='card-header text-primary'>{{ user }}</h3>
+                    <div class="card-body">
+                        {% if user.first_name %}
+                        <p>Имя: {{ user.first_name }}</p>
+                    {% endif %}
+                    {% if user.last_name %}
+                        <p>Фамилия: {{ user.last_name }}</p>
+                    {% endif %}
+                    {% if user.email %}
+                        <p>Почта: {{ user.email }}</p>
+                    {% endif %}
+                    {% if user.profile.birthday %}
+                        <p>День рождения: {{ user.profile.birthday }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+
+    {% if items %}
+        <h3 style='margin-left: 2rem' class='mt-2'>Список любимых товаров:</h3>
+        {% include 'includes/item_card.html' %}
+    {% else %}
+        <h3>Любимых товаров нет</h3>
+    {% endif %}
 {% endblock content %}

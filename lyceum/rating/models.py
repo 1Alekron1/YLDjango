@@ -2,8 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import UniqueConstraint
 
-from catalog.models import Item
-
 User = get_user_model()
 
 
@@ -21,7 +19,7 @@ class Rating(models.Model):
         User, verbose_name="Пользователь", on_delete=models.CASCADE, default=""
     )
     item = models.ForeignKey(
-        Item, verbose_name="Товар", on_delete=models.CASCADE, default=""
+        to="catalog.Item", verbose_name="Товар", on_delete=models.CASCADE, default=""
     )
 
     class Meta:

@@ -5,5 +5,14 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Мой профиль</h1>
+    <h1 style='margin-left: 2rem' class='mt-2'>Добро пожаловать, <span class="text-primary">{{user.username}}</span>!</h1>
+    <br>
+    {% if items %}
+    <h3 style='margin-left: 2rem' class='mt-2'>Список любимых товаров:</h3>
+        {% include 'includes/item_card.html' %}
+    {% else %}
+        <h3>Любимых товаров нет</h3>
+    {% endif %}
+    <br>
+    <a style='margin-left: 2rem' href="{% url 'password_change' %}" class="btn btn-outline-secondary">Изменить пароль</a>
 {% endblock content %}
