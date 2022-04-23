@@ -115,4 +115,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
 
 AUTH_USER_MODEL = "users.CustomUser"
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "users.backends.EmailBackend",
+)

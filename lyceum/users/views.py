@@ -42,7 +42,7 @@ def signup(request):
     return render(
         request=request,
         template_name="users/signup.html",
-        context={"register_form": form},
+        context={"form": form},
     )
 
 
