@@ -1,8 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
 
 from .models import Profile
+
+User = get_user_model()
 
 
 class ProfileInline(admin.TabularInline):
@@ -14,5 +16,4 @@ class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
 
-admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

@@ -4,13 +4,15 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Prefetch
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 from .models import Profile
 from catalog.models import Item, Tag
 from rating.models import Rating
 from .forms import ChangeProfileForm, ChangeUserForm
+
+User = get_user_model()
 
 
 def user_list(request):
@@ -34,7 +36,6 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Вы успешно зарегестрировались")
             return redirect("homepage")
         messages.error(request, "Некорректные данные")
     form = NewUserForm()
