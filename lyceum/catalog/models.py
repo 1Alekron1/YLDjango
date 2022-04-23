@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import Prefetch
 
 from core.models import PublishedBaseModel, SlugBaseModel
-from rating.models import Ratings
+from rating.models import Rating
 from .validators import validate_brilliants, validate_words
 
 User = get_user_model()
