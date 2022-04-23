@@ -1,5 +1,4 @@
 from django.urls import path
-
 import django.contrib.auth.views as admin_views
 
 from users import views

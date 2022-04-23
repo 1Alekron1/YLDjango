@@ -4,8 +4,12 @@
     Мой профиль
 {% endblock title %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
     <h1 style='margin-left: 2rem' class='mt-2'>Добро пожаловать, <span class="text-primary">{{user.username}}</span>!</h1>
+    <br>
+    <a style='margin-left: 2rem' href="{% url 'password_change' %}" class="btn btn-outline-secondary">Изменить пароль</a>
     <br>
     {% if items %}
     <h3 style='margin-left: 2rem' class='mt-2'>Список любимых товаров:</h3>
@@ -14,5 +18,29 @@
         <h3>Любимых товаров нет</h3>
     {% endif %}
     <br>
-    <a style='margin-left: 2rem' href="{% url 'password_change' %}" class="btn btn-outline-secondary">Изменить пароль</a>
+    <h3 style='margin-left: 2rem' class='mt-2'>Изменить данные</h3>
+    <br>
+
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in user_form %}
+                <div class="mb-3">
+                    {{ field.errors }}
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            {% for field in profile_form %}
+                <div class="mb-3">
+                    {{ field.errors }}
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            {% block buttons %}
+                <button type="submit" class="btn btn-primary">Изменить</button>
+            {% endblock %}
+        </form>
+    </div>
 {% endblock content %}

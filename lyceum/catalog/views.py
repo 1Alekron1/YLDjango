@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+from django.db.models import Avg, Count
+
+
 from catalog.models import Item, Category
 from rating.models import Rating
 from .forms import RatingSelect
-
-from django.db.models import Avg, Count
 
 
 def item_list(request):

@@ -5,9 +5,12 @@ from django.contrib import messages
 from django.db.models import Prefetch
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+
+
 from .models import Profile
 from catalog.models import Item, Tag
 from rating.models import Rating
+from .forms import ChangeProfileForm, ChangeUserForm
 
 
 def user_list(request):
@@ -44,5 +47,15 @@ def signup(request):
 
 def profile(request):
     items = Item.objects.favourite_items(request.user)
-    context = {"items": items}
+    if request.method == "POST":
+        user_form = ChangeUserForm(request.POST, instance=request.user)
+        profile_form = ChangeProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect("profile")
+    else:
+        user_form = ChangeUserForm(instance=request.user)
+        profile_form = ChangeProfileForm(instance=request.user.profile)
+    context = {"items": items, "user_form": user_form, "profile_form": profile_form}
     return render(request, "users/profile.html", context=context)
