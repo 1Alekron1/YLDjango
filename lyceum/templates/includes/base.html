@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -10,6 +12,13 @@
   <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   {% block styles %}
   {% endblock %}
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static '/fav/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static '/fav/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static '/fav/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static '/fav/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static '/fav/safari-pinned-tab.svg' %}" color="#5bbad5">
 </head>
 
 <body>
